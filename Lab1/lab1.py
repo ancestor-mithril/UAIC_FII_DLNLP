@@ -5,19 +5,19 @@ from Lab1.crossword_creation import build_crossword
 from Lab1.word_list_builder import get_words_and_definitions
 import json
 
-
-word_list = [(key, value) for key, value in get_words_and_definitions('sports').items()]
+input_word = input("Please write a thematic for your crossword puzzle\n")
+word_list = [(key, value) for key, value in get_words_and_definitions(input_word).items()]
 
 c = build_crossword(word_list)
 if c is None:
     raise "Please use another thematic for your crossword puzzle"
 
-print(c.word_bank())
+# print(c.word_bank())
 crossword_solution = c.solution()
-print(crossword_solution)
+# print(crossword_solution)
 crossword_solution = crossword_solution.replace(' ', '').split('\n')
 json_solution = c.solution2json()
-print(json_solution)
+# print(json_solution)
 
 settings_file = 'settings.json'
 json.dump(json_solution, open(settings_file, 'w'))
@@ -41,13 +41,14 @@ for index, word in enumerate(json_solution["words"]):
         puzzle.clues.across[index + 1] = word["clue"]
     puzzle[word["row"] - 1, word["col"] - 1].cell = index + 1
 
-for direction, number, clue in puzzle.clues.all():
-    print(direction, number, clue)
+# for direction, number, clue in puzzle.clues.all():
+#     print(direction, number, clue)
 
 ipuz_dict = to_ipuz(puzzle)
 
-print(puzzle)
+# print(puzzle)
 
 with open('puzzle.ipuz', 'w') as puzzle_file:
     puzzle_file.write(ipuz.write(ipuz_dict))
 
+print("Please upload your puzzle.ipuz file to an IPUZ puzzle reader")
