@@ -1,3 +1,4 @@
+# Credit to: https://github.com/sealhuang/pycrossword/blob/main/crossword_puzzle.py
 # vi: set ft=python sts=4 ts=4 sw=4 et:
 
 import random
@@ -346,8 +347,29 @@ class Crossword(object):
         """Must order first."""
         outStr = ''
         for word in self.current_word_list:
-            outStr += '%d. (%d,%d) %s: %s\n' % (word.number, word.col, word.row, word.down_across(), word.clue)
+            outStr += '{0}. ({1},{2}) {3}: {4}\n' % (word.number, word.col, word.row, word.down_across(), word.clue)
         return outStr
+
+    def solution2json(self):
+        """Output puzzle solution as json format."""
+        solution = {
+            'size': {
+                'cols': self.cols,
+                'rows': self.rows,
+            },
+            'words': [],
+        }
+        for word in self.current_word_list:
+            w = {
+                'word': word.word,
+                'clue': word.clue,
+                'col': word.col,
+                'row': word.row,
+                'direction': word.down_across(),
+            }
+            solution['words'].append(w)
+
+        return solution
 
 
 class Word(object):
