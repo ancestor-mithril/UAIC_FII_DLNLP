@@ -26,19 +26,20 @@ json.dump(json_solution, open(settings_file, 'w'))
 puzzle = Crossword(json_solution["size"]["rows"], json_solution["size"]["cols"])
 for x, y in puzzle.cells:
     cell_value = crossword_solution[x][y]
-    if cell_value != '-':
-        puzzle[x, y].cell = " "
+    if cell_value != '*':
+        puzzle[x, y].cell = 0
         puzzle[x, y].solution = cell_value
-        puzzle[x, y].style = {'background-color': 'red'}
+        # puzzle[x, y].style = {'background-color': 'red'}
     else:
-        puzzle[x, y].cell = '-'
-        puzzle[x, y].style = {'background-color': 'white'}
+        puzzle[x, y].cell = None
+        # puzzle[x, y].style = {'background-color': 'white'}
 
 for index, word in enumerate(json_solution["words"]):
     if word["direction"] == 'across':
-        puzzle.clues.across[index] = word["clue"]
+        puzzle.clues.down[index + 1] = word["clue"]
     else:
-        puzzle.clues.down[index] = word["clue"]
+        puzzle.clues.across[index + 1] = word["clue"]
+    puzzle[word["row"] - 1, word["col"] - 1].cell = index + 1
 
 for direction, number, clue in puzzle.clues.all():
     print(direction, number, clue)
@@ -49,7 +50,4 @@ print(puzzle)
 
 with open('puzzle.ipuz', 'w') as puzzle_file:
     puzzle_file.write(ipuz.write(ipuz_dict))
-
-# with open('puzzle.puz', 'w') as puzzle_file:
-#     puzzle_file.write(puz.write(ipuz_dict))
 

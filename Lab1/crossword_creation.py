@@ -397,7 +397,7 @@ class Word(object):
 def build_crossword(words, max_length=7, iterations=10):
     for _ in range(iterations):
         used_words = random.sample(words, max_length)
-        a = Crossword(20, 20, '-', 10000, used_words)
+        a = Crossword(20, 20, '*', 10000, used_words)
         a.compute_crossword(4)
         if len(a.current_word_list) == max_length:
             return a
