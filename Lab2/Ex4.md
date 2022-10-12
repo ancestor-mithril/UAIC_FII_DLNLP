@@ -2,7 +2,7 @@ Sometimes engineers and mathematicians need to perform calculations or run simul
 Even so, writing code in Python requires time spent in learning or searching for language constructs and characteristics. 
 We propose an application which helps transforming semi-formal language (using engineering and mathematical formalism combined with natural language) into Python code. Using this application, the engineer can write a higher level pseudocode using language constructs specific to his domain which can be transformed into running Python code. 
 The application needs syntactic and dependency parsing, used for understanding both the pseudocode and the informal words and transforming them into working python code. 
-The tree generated from syntactic and dependency parsing is later used for applying (mapping) functors (represented by predicates) with parameters (represented by words correlated with the predicate) on transformed arguments (subjects on which transformations denoted by their corresponding attributes were applied.
+The tree generated from syntactic and dependency parsing is later used for applying (mapping) functors (represented by predicates) with parameters (represented by words correlated with the predicate) on transformed arguments (subjects on which transformations denoted by their corresponding attributes were applied).
 
 
 Apply a force of 5 Newtons on a cube of mass 5 at an angle of pi/6 radians for 5 seconds. Check the speed of the cube. ->
