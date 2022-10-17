@@ -91,7 +91,8 @@ def compute_probability_of_new_sentence(model, sentence, n):
     words = sentence.split()  # we assume no punctuation
     words = pad_sentence(sentence_to_lower(words), n)
     scores = list()
-    min_score = model.score("<UKN>");
+    min_score = model.score("<UKN>")
+    total_score = 0
 
     def limit_context(context):
         context = context[-n + 1:]
@@ -103,12 +104,13 @@ def compute_probability_of_new_sentence(model, sentence, n):
         context = limit_context(words[:i])
         current = words[i]
         score = model.score(current, context)
+        total_score += model.logscore(current, context)
         if abs(score - min_score) < 1e-8:
             score = "MIN"
 
         scores.append(
             [f"{current} | {' '.join(context) if context is not None else '':<16}", score])
-    return scores
+    return scores, total_score
 
 
 def exercise1(n):
